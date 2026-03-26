@@ -20,6 +20,13 @@ echo -e "${BOLD}  MARS — Autonomous Bootstrap System${RESET}"
 echo -e "  ${CYAN}https://github.com/elgrhy/marsatlas${RESET}"
 echo ""
 
+# Detect upgrade vs fresh install
+if command -v mars >/dev/null 2>&1; then
+  CURRENT_VERSION="$(mars --version 2>/dev/null | awk '{print $NF}' || echo "unknown")"
+  echo -e "  ${YELLOW}Existing installation detected (${CURRENT_VERSION}) — upgrading...${RESET}"
+  echo ""
+fi
+
 # ── Detect OS ──────────────────────────────────────────────────────────────────
 OS="$(uname -s 2>/dev/null || echo "unknown")"
 ARCH="$(uname -m 2>/dev/null || echo "unknown")"
