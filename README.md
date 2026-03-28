@@ -11,7 +11,7 @@ mars
 
 ---
 
-## Computers (Mac / Windows / Linux)
+## Getting Started
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/elgrhy/marsatlas/main/install.sh | bash
@@ -29,13 +29,12 @@ MARS registers itself globally — type `mars` from anywhere, any time.
 
 ## Choose Your Agent
 
-MARS gives you three agents to pick from:
-
 | Agent | Description | Requirements |
 | :--- | :--- | :--- |
-| **ATLAS** | In-process LLM agent. Chat immediately. Builds skills, runs workflows. | None |
-| **OpenClaw** | Full-featured agent from openclaw.ai. Local or cloud-deployed. | Docker or AWS CLI |
-| **PicoClaw** | Lightweight no-Docker agent. Runs as a python3 or node process. | python3 or node |
+| **ATLAS** | Your personal AI assistant — can build apps, write code, and automate tasks for you | None |
+| **Cranberry** | A research and analysis AI — great for reading, summarising, and exploring information | None |
+| **OpenClaw** | An open-source coding assistant — runs on your computer or in the cloud | None for local; AWS CLI for cloud |
+| **PicoClaw** | A lightweight coding assistant — quick to start, works without any container software | None |
 
 ---
 
@@ -43,10 +42,10 @@ MARS gives you three agents to pick from:
 
 ```
 1. MARS detects your machine — hardware, OS, every capability
-2. MARS finds your local Ollama — or connects to Gemini, Claude, OpenAI, or Groq
-3. You pick which agent to run: ATLAS, OpenClaw, or PicoClaw
-4. MARS installs, secures, and starts your agent
-5. ATLAS chats with you. OpenClaw/PicoClaw run on localhost and are ready for API calls.
+2. MARS finds your local Ollama — or connects to Gemini, Claude, OpenAI, Groq, or DeepSeek
+3. You pick which agent to run
+4. MARS installs, secures, and starts your agent automatically
+5. Chat with your agent in the terminal or via its web interface
 ```
 
 ---
@@ -55,24 +54,34 @@ MARS gives you three agents to pick from:
 
 | Type | Providers |
 | :--- | :--- |
-| Local | Ollama (any model — auto-detected, any port) |
-| Cloud | Google Gemini, Anthropic Claude, OpenAI, Groq |
+| Local | Ollama (any model — auto-detected on 8 ports) |
+| Cloud | Google Gemini, Anthropic Claude, OpenAI, Groq, DeepSeek |
 
 ---
 
-## Mobile & Tablets (iPhone, iPad, Android)
-
-Run `mars` on a computer on your local network, then enable the web bridge:
+## Commands
 
 ```bash
-mars --web
+mars                    # Full bootstrap — detect, resolve LLM, pick agent, start
+mars chat atlas         # Resume ATLAS chat session
+mars agent new          # Add another agent
+mars agent list         # List all registered agents
+mars agent status       # Show agent health
+mars doctor             # Diagnose and auto-heal all agents
+mars watch              # Start background watchdog — auto-restarts agents on failure
+mars watch --stop       # Stop the watchdog
+mars watch --status     # Check watchdog status
+mars config             # Change LLM settings
+mars update             # Self-update to the latest MARS binary
+mars --ghost            # Bootstrap then self-erase (Ghost Protocol)
 ```
 
-MARS displays a web link (e.g. `http://192.168.1.5:8080`). Open it in any browser.
+You can also say these things in plain English during a chat session:
 
-**Android (Termux — native):**
-```bash
-pkg install curl && curl -fsSL https://raw.githubusercontent.com/elgrhy/marsatlas/main/install.sh | bash
+```
+"my agent isn't working"    → runs doctor automatically
+"keep my agents running"    → starts the watchdog
+"I need an agent"           → shows the agent menu
 ```
 
 ---
@@ -87,26 +96,14 @@ pkg install curl && curl -fsSL https://raw.githubusercontent.com/elgrhy/marsatla
 | Linux ARM64 / Raspberry Pi / Android Termux | `mars-linux-arm64` |
 | Windows x86_64 | `mars-windows-x86_64.exe` |
 
----
-
-## Manual Download
-
-Download the binary for your platform from [Releases](https://github.com/elgrhy/marsatlas/releases/latest).
-
-Verify with the included `.sha256` checksum file before running.
+Download from [Releases](https://github.com/elgrhy/marsatlas/releases/latest). Each binary includes a `.sha256` checksum.
 
 ---
 
-## Commands
+## Android (Termux)
 
 ```bash
-mars                    # Full bootstrap — detect, resolve LLM, pick agent, start
-mars --ghost            # Bootstrap then self-erase after handover (Ghost Protocol)
-mars chat atlas         # Resume ATLAS chat session
-mars agent new          # Add another agent
-mars agent list         # List all registered agents
-mars agent status       # Show agent health
-mars config             # Change LLM settings
+pkg install curl && curl -fsSL https://raw.githubusercontent.com/elgrhy/marsatlas/main/install.sh | bash
 ```
 
 ---
@@ -117,18 +114,7 @@ mars config             # Change LLM settings
 - Each agent runs in its own isolated `.env` — your root credentials never shared
 - All agent processes bind to `127.0.0.1` (localhost only)
 - `.mars/` directory is chmod 700 (owner-only)
-- OpenClaw: Docker volumes restricted, sensitive paths blocked
-- Ghost Protocol produces a signed audit trail before MARS erases itself
-
----
-
-## Auto-Update
-
-MARS checks for updates at startup (background, 4-second timeout, silent fail). Re-run the install command to upgrade:
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/elgrhy/marsatlas/main/install.sh | bash
-```
+- OpenClaw cloud: API key stored in AWS Secrets Manager, not in task environment variables
 
 ---
 

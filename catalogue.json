@@ -1,0 +1,66 @@
+{
+  "version": "1",
+  "updated": "2026-03-28",
+  "agents": [
+    {
+      "id": "atlas",
+      "name": "ATLAS",
+      "description": "Your personal AI assistant — can build apps, write code, and automate tasks for you",
+      "kind": "atlas",
+      "requirements": [],
+      "protocol": "genesis-v3",
+      "port": null,
+      "source": "embedded"
+    },
+    {
+      "id": "cranberry",
+      "name": "Cranberry",
+      "description": "A research and analysis AI — great for reading, summarising, and exploring information",
+      "kind": "cranberry",
+      "requirements": [],
+      "download": {
+        "repo": "elgrhy/cranberry-dist",
+        "asset_prefix": "cranberry-"
+      },
+      "port": 5100
+    },
+    {
+      "id": "openclaw-local",
+      "name": "OpenClaw (Local)",
+      "description": "An open-source coding assistant — runs on your computer",
+      "kind": "openclaw-local",
+      "requirements": [],
+      "install": "https://openclaw.ai/install.sh",
+      "port": 18789
+    },
+    {
+      "id": "openclaw-cloud",
+      "name": "OpenClaw (Cloud)",
+      "description": "An open-source coding assistant — deploy online so it's accessible from anywhere",
+      "kind": "openclaw-cloud",
+      "requirements": ["aws-cli"],
+      "port": 4000
+    },
+    {
+      "id": "openclaw-hosted",
+      "name": "OpenClaw (Hosted)",
+      "description": "Use the managed version at openclaw.ai — no setup needed",
+      "kind": "openclaw-hosted",
+      "requirements": [],
+      "portal": "https://openclaw.ai/hosted",
+      "port": null
+    },
+    {
+      "id": "picoclaw",
+      "name": "PicoClaw",
+      "description": "A lightweight coding assistant — quick to start, works without any container software",
+      "kind": "picoclaw",
+      "requirements": [],
+      "download": {
+        "repo": "sipeed/picoclaw",
+        "asset_prefix": "picoclaw-launcher-"
+      },
+      "port": 18800
+    }
+  ]
+}
